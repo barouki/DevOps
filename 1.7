@@ -1,12 +1,43 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-WORKDIR /1.6
-COPY curl.sh .
-RUN chmod 755 curl.sh
-RUN apt-get update && apt-get install -y curl
-CMD ["./curl.sh"]
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get install -y bash
+
+ADD get_site.sh /
+
+RUN chmod +x /get_site.sh
+
+CMD /get_site.sh
 
 
-echo "Input website:"; 
-read website; 
-echo "Searching.."; sleep 1; curl http://$website;
+
+
+#!/bin/bash
+
+echo "Input website:";
+
+read website;
+
+echo "Searching..";
+
+sleep 1;
+
+curl "http://${website}";
+
+
+
+
+
+MacBook-Pro-de-macbook:1.6 macbookpro$ docker run -it --name curlertast a3592973e577
+Input website:
+helsinki.fi
+Searching..
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+</body></html>
+MacBook-Pro-de-macbook:1.6 macbookpro$ 
