@@ -1,0 +1,12 @@
+FROM ubuntu:16.04
+
+WORKDIR /1.6
+COPY curl.sh .
+RUN chmod 755 curl.sh
+RUN apt-get update && apt-get install -y curl
+CMD ["./curl.sh"]
+
+
+echo "Input website:"; 
+read website; 
+echo "Searching.."; sleep 1; curl http://$website;
